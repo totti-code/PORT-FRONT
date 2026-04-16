@@ -1,0 +1,75 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at 12% 10%, rgba(96, 165, 250, 0.16), transparent 26%),
+    radial-gradient(circle at 88% 14%, rgba(56, 189, 248, 0.12), transparent 22%),
+    linear-gradient(180deg, #07101d 0%, #050b16 56%, #040811 100%);
+  color: #f8fafc;
+  font-family: "Segoe UI Variable", Inter, "SF Pro Display", ui-sans-serif, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+.container-page {
+  width: min(1120px, calc(100% - 32px));
+  margin: 0 auto;
+}
+
+.btn {
+  @apply inline-flex items-center justify-center gap-2 rounded-xl px-5 py-3 text-sm font-semibold transition duration-300;
+}
+
+.btn-primary {
+  @apply btn border border-sky-300/10 bg-[linear-gradient(135deg,#4a86e8_0%,#3b82f6_55%,#2b63d9_100%)] text-white shadow-[0_8px_18px_rgba(59,130,246,0.1)] hover:-translate-y-0.5 hover:scale-[1.01] hover:shadow-[0_10px_22px_rgba(59,130,246,0.14)];
+}
+
+.btn-secondary {
+  @apply btn border border-sky-200/15 bg-white/[0.04] text-sky-100 shadow-[inset_0_1px_0_rgba(255,255,255,0.04)] hover:-translate-y-0.5 hover:border-sky-300/35 hover:bg-white/[0.08];
+}
+
+.field {
+  @apply w-full rounded-lg border border-sky-300/15 bg-slate-950/45 px-4 py-3 text-sm text-white outline-none transition placeholder:text-slate-500 focus:border-sky-300/60 focus:ring-2 focus:ring-sky-400/20;
+}
+
+.card {
+  @apply rounded-2xl border border-sky-200/10 bg-[rgba(8,18,34,0.78)] shadow-[0_16px_50px_rgba(2,12,27,0.38)] backdrop-blur-xl transition duration-300 hover:-translate-y-1 hover:border-sky-300/25 hover:shadow-[0_22px_70px_rgba(15,23,42,0.5)];
+}
+
+.glass-panel {
+  @apply rounded-2xl border border-sky-200/10 bg-[rgba(8,18,34,0.72)] shadow-[0_16px_60px_rgba(2,12,27,0.36)] backdrop-blur-2xl;
+}
+
+.section-kicker {
+  @apply text-xs font-bold uppercase tracking-[0.22em] text-sky-300/90;
+}
+
+.section-title {
+  @apply text-3xl font-black tracking-tight text-white sm:text-4xl;
+}
+
+.section-copy {
+  @apply text-sm leading-7 text-slate-300 sm:text-base;
+}
+
+.fallback-image {
+  background:
+    linear-gradient(135deg, rgba(15, 118, 110, 0.2), rgba(220, 95, 69, 0.18)),
+    repeating-linear-gradient(45deg, #ffffff, #ffffff 10px, #eef1ef 10px, #eef1ef 20px);
+}
