@@ -1,8 +1,25 @@
-const API_URL = import.meta.env.VITE_API_URL || "http://localhost:4000";
+function resolveApiUrl() {
+  const envApiUrl = import.meta.env.VITE_API_URL?.trim();
+
+  if (envApiUrl) {
+    return envApiUrl.replace(/\/+$/, "");
+  }
+
+  if (typeof window === "undefined") {
+    return "http://localhost:4000";
+  }
+
+  const { hostname, origin } = window.location;
+  const isLocalhost = ["localhost", "127.0.0.1", "::1"].includes(hostname);
+
+  return isLocalhost ? "http://localhost:4000" : origin;
+}
+
+const API_URL = resolveApiUrl();
 
 function authHeaders() {
   const token = localStorage.getItem("portfolio_token");
-  return token ? { Authorization: `Bearer ${token}` } : {};1
+  return token ? { Authorization: `Bearer ${token}` } : {};
 }
 
 async function request(path, options = {}) {
