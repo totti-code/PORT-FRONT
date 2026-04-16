@@ -17,6 +17,11 @@ function resolveApiUrl() {
 
 const API_URL = resolveApiUrl();
 
+function clearAuthStorage() {
+  localStorage.removeItem("portfolio_token");
+  localStorage.removeItem("portfolio_user");
+}
+
 function authHeaders() {
   const token = localStorage.getItem("portfolio_token");
   return token ? { Authorization: `Bearer ${token}` } : {};
@@ -35,6 +40,14 @@ async function request(path, options = {}) {
 
   if (response.status === 204) return null;
   const data = await response.json().catch(() => ({}));
+
+  if (response.status === 401) {
+    clearAuthStorage();
+
+    if (typeof window !== "undefined" && window.location.pathname.startsWith("/admin")) {
+      window.location.replace("/admin/login");
+    }
+  }
 
   if (!response.ok) {
     throw new Error(data.message || "Nao foi possivel concluir a acao.");
