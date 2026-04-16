@@ -9,17 +9,21 @@ export default function Login() {
   const [email, setEmail] = useState("admin@portfolio.com");
   const [password, setPassword] = useState("admin123");
   const [error, setError] = useState("");
+  const [submitting, setSubmitting] = useState(false);
 
   if (isAuthenticated) return <Navigate to="/admin" replace />;
 
   async function submit(e) {
     e.preventDefault();
     setError("");
+    setSubmitting(true);
     try {
       await login(email, password);
       navigate("/admin");
     } catch (err) {
       setError(err.message);
+    } finally {
+      setSubmitting(false);
     }
   }
 
@@ -31,9 +35,11 @@ export default function Login() {
           <h1 className="mt-2 text-3xl font-black">Entrar</h1>
         </div>
         <Alert type="error">{error}</Alert>
-        <input className="field" type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
-        <input className="field" type="password" placeholder="Senha" value={password} onChange={(e) => setPassword(e.target.value)} />
-        <button className="btn-primary w-full" type="submit">Acessar painel</button>
+        <input className="field" type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} disabled={submitting} />
+        <input className="field" type="password" placeholder="Senha" value={password} onChange={(e) => setPassword(e.target.value)} disabled={submitting} />
+        <button className="btn-primary w-full" type="submit" disabled={submitting}>
+          {submitting ? "Entrando..." : "Acessar painel"}
+        </button>
         <p className="text-xs text-slate-400">Padrao local: admin@portfolio.com / admin123</p>
       </form>
     </main>
